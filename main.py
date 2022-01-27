@@ -14,7 +14,7 @@ height = 640
 # Set up the drawing window
 screen = pygame.display.set_mode([width, height])
 # Font
-font = pygame.font.Font('res/small_pixel-7.ttf', 20)
+font = pygame.font.Font('res/FiraMono-Medium.ttf', 15)
 # tank = {'x': width / 2, 'y': height / 2, 'size': 15, 'velocity': 0.25}
 tank = Tank(width / 2, height / 2, 15, 0.25)
 x, y, title = 0, 0, 'idle'
