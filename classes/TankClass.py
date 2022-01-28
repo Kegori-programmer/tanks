@@ -2,7 +2,7 @@ from classes.GraphicClass import Graphic
 
 
 class Tank:
-    def __init__(self, graphic: Graphic, x: int, y: int, size: int, velocity: float, color: str):
+    def __init__(self, graphic: Graphic, x: float, y: float, size: int, velocity: float, color: str):
         self.graphic = graphic
         self.dir_x = 0
         self.dir_y = 0
