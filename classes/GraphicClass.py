@@ -3,6 +3,7 @@ from typing import Tuple, Union
 import pygame.time
 
 from helpers.PygameHelper import Pygame
+from helpers.MathHelper import PointFloat
 
 
 class Graphic:
@@ -34,10 +35,10 @@ class Graphic:
     def render(self):
         self.graphic.render()
 
-    def draw_circle(self, radius: float, center: (int, int), color: str):
+    def draw_circle(self, radius: float, center: PointFloat, color: str):
         self.graphic.draw_circle(radius, center, color)
 
-    def draw_circle_alpha(self, radius: float, center: (int, int), color: str):
+    def draw_circle_alpha(self, radius: float, center: PointFloat, color: str):
         self.graphic.draw_circle_alpha(radius, center, color)
 
     def draw_text(self, text: str, position: (int, int), color: str):

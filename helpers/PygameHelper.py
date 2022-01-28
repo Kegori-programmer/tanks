@@ -1,5 +1,5 @@
 from typing import Tuple
-
+from helpers.MathHelper import Point
 import pygame
 
 
@@ -60,11 +60,11 @@ class Pygame:
             return direction[0], direction[1]
         return 0, 0
 
-    def draw_circle(self, radius: float, center: (int, int), color: str):
-        pygame.draw.circle(self.window, pygame.Color(color), center, radius)
+    def draw_circle(self, radius: float, center: Point, color: str):
+        pygame.draw.circle(self.window, pygame.Color(color), center.tuple, radius)
 
-    def draw_circle_alpha(self, radius, center, color):
-        rect = pygame.Rect(center, (0, 0)).inflate((radius * 2, radius * 2))
+    def draw_circle_alpha(self, radius: float, center: Point, color: str):
+        rect = pygame.Rect(center.tuple, (0, 0)).inflate((radius * 2, radius * 2))
         shape = pygame.Surface(rect.size, pygame.SRCALPHA)
         pygame.draw.circle(shape, color, (radius, radius), radius)
         self.background.blit(shape, rect)
