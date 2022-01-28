@@ -11,7 +11,7 @@ running = True
 graphic = Graphic(Pygame(800, 800, 'grey'))
 info = Info(graphic)
 plr_1 = TankPlayer(graphic, round(graphic.width / 2), round(graphic.height / 2), size, velocity, 'blue')
-bot_1 = TankBot(graphic, round(graphic.width / 8), round(graphic.height / 2), size, velocity / 3, 'red')
+bot_1 = TankBot(graphic, round(graphic.width / 8), round(graphic.height / 2), size, velocity / 2, 'red')
 
 
 def render():
@@ -20,7 +20,8 @@ def render():
     info.bot(bot_1)
     plr_1.draw()
     bot_1.draw()
-    graphic.draw_circle_alpha(20, (bot_1.dst_x, bot_1.dst_y), 'red')
+    # graphic.draw_circle_alpha(20, (plr_1.dst_x, plr_1.dst_y), 'blue')
+    # graphic.draw_circle_alpha(20, (bot_1.dst_x, bot_1.dst_y), 'red')
     graphic.render()
 
 

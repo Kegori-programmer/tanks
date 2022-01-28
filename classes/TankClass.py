@@ -32,8 +32,8 @@ class Tank:
         return False
 
     def set_position(self, pos_x: float, pos_y: float):
-        self.pos_x = pos_x
-        self.pos_y = pos_y
+        self.pos_x, self.pos_y = pos_x, pos_y
+        # self.dst_x, self.dst_y = pos_x, pos_y
 
     def draw(self):
         self.graphic.draw_circle(self.size, (self.pos_x, self.pos_y), self.color, )
