@@ -28,16 +28,8 @@ class TankBot(Tank):
             return (self.pos.x, to_point.y) if bool(random.getrandbits(1)) else (to_point.x, self.pos.y)
 
     def get_position(self, player: TankPlayer) -> Tuple[float, float]:
-        # distance_scalar = Math.distance_scalar(self.pos, self.dst)
         distance = Math.distance_xy(self.pos, self.dst)
 
-        self.graphic.draw_text(f'disX: {str(distance.x)}', (400, 5), 'black')
-        self.graphic.draw_text(f'disY: {str(distance.y)}', (400, 25), 'black')
-        # self.graphic.draw_text(f'dis: {str(distance_scalar)}', (400, 45), 'black')
-        self.graphic.draw_text(f'dstX: {str(self.dst.x)}', (400, 65), 'black')
-        self.graphic.draw_text(f'dstY: {str(self.dst.y)}', (400, 85), 'black')
-
-        # if math.floor(distance_scalar) < self.velocity:
         if math.floor(distance.x) == 0 and math.floor(distance.y) == 0:
             self.dst.x, self.dst.y = player.pos.x, player.pos.y
             self.dir.x, self.dir.y = 0, 0

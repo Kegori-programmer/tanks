@@ -30,8 +30,8 @@ class Info:
         self.__destination(player.dst, (10, 65, 85))
         self.__position(player.pos, (10, 105, 125))
 
-    def bot(self, bot: Tank):
-        self.__status(bot.status, (650, 5))
-        self.__direction(bot.dir, (650, 25, 45))
-        self.__destination(bot.dst, (650, 65, 85))
-        self.__position(bot.pos, (650, 105, 125))
+    def bot(self, i: int, bot: Tank):
+        self.__status(bot.status, (650, i * 150 + 5))
+        self.__direction(bot.dir, (650, i * 150 + 25, i * 150 + 45))
+        self.__destination(bot.dst, (650, i * 150 + 65, i * 150 + 85))
+        self.__position(bot.pos, (650, i * 150 + 105, i * 150 + 125))
