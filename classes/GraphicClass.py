@@ -2,8 +2,9 @@ from typing import Tuple, Union
 
 import pygame.time
 
+from CustomTypes import TColor
+from helpers.MathHelper import PointFloat, PointInt
 from helpers.PygameHelper import Pygame
-from helpers.MathHelper import PointFloat
 
 
 class Graphic:
@@ -23,11 +24,16 @@ class Graphic:
         return self.graphic.height
 
     @property
+    def fontSize(self) -> int:
+        return self.graphic.fontSize
+
+    @property
+    def direction(self) -> Tuple[int, int]:
+        return self.graphic.direction
+
+    @property
     def running(self) -> bool:
         return self.graphic.running
-
-    def direction(self, direction: (int, int) = None) -> Tuple[int, int]:
-        return self.graphic.direction(direction)
 
     def clear(self):
         self.graphic.clear()
@@ -35,11 +41,20 @@ class Graphic:
     def render(self):
         self.graphic.render()
 
-    def draw_circle(self, radius: float, center: PointFloat, color: str):
+    def draw_arrow(self, size: float, pos: PointFloat, orientation: PointInt, color: TColor):
+        self.graphic.draw_arrow(size, pos, orientation, color)
+
+    def draw_circle(self, radius: float, center: PointFloat, color: TColor):
         self.graphic.draw_circle(radius, center, color)
 
-    def draw_circle_alpha(self, radius: float, center: PointFloat, color: str):
+    def draw_circle_alpha(self, radius: float, center: PointFloat, color: TColor):
         self.graphic.draw_circle_alpha(radius, center, color)
 
-    def draw_text(self, text: str, position: (int, int), color: str):
+    def draw_line(self, p1: (float, float), p2: (float, float), color: TColor):
+        self.graphic.draw_line(p1, p2, color)
+
+    def draw_text(self, text: str, position: (int, int), color: TColor):
         self.graphic.draw_text(text, position, color)
+
+    def draw_text_center(self, text: str, position: (int, int), color: TColor):
+        self.graphic.draw_text_center(text, position, color)

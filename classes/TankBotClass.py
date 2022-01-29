@@ -9,6 +9,12 @@ from helpers.MathHelper import Math, PointFloat, Point
 
 class TankBot(Tank):
 
+    def draw(self):
+        super().draw()
+        self.graphic.draw_circle_alpha(self.size * 2, self.dst, self.color)
+        self.graphic.draw_line((self.pos.x, self.pos.y), (self.dst.x, self.dst.y), self.color)
+        self.graphic.draw_text_center(self.name, (self.pos.x, self.pos.y), 'black')
+
     def get_direction(self, to_point: Point) -> Tuple[int, int]:
         distance = Math.distance_xy(self.pos, to_point)
         if distance.x > distance.y:
@@ -30,11 +36,14 @@ class TankBot(Tank):
     def get_position(self, player: TankPlayer) -> Tuple[float, float]:
         distance = Math.distance_xy(self.pos, self.dst)
 
-        if math.floor(distance.x) == 0 and math.floor(distance.y) == 0:
-            self.dst.x, self.dst.y = player.pos.x, player.pos.y
+        if math.floor(distance.x) < self.velocity and math.floor(distance.y) < self.velocity:
+            # self.dst.x, self.dst.y = player.pos.x, player.pos.y
+            self.dst.x, self.dst.y = self.destination_to(player.pos)
             self.dir.x, self.dir.y = 0, 0
+            self.set_orientation(self.dir.x, self.dir.y)
             return self.pos.x, self.pos.y
         else:
-            self.dst.x, self.dst.y = self.destination_to(player.pos)
+            # self.dst.x, self.dst.y = self.destination_to(player.pos)
             self.dir.x, self.dir.y = self.get_direction(self.dst)
+            self.set_orientation(self.dir.x, self.dir.y)
             return self.predict_position
