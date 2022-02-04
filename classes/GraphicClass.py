@@ -23,10 +23,6 @@ class Graphic:
 		return self.graphic.height
 
 	@property
-	def fontSize(self) -> int:
-		return self.graphic.fontSize
-
-	@property
 	def direction(self) -> Tuple[bool, int, int]:
 		return self.graphic.direction
 
@@ -40,20 +36,20 @@ class Graphic:
 	def render(self):
 		self.graphic.render()
 
-	def draw_arrow(self, size: float, position: (float, float), direction: (float, float), color: TColor):
-		self.graphic.draw_arrow(size, position, direction, color)
+	def draw_arrow(self, position: (float, float), direction: (float, float), size: float, color: TColor):
+		self.graphic.draw_arrow(position, direction, size, color)
 
-	def draw_circle(self, radius: float, position: (float, float), color: TColor):
-		self.graphic.draw_circle(radius, position, color)
+	def draw_circle(self, position: (float, float), radius: float, color: TColor):
+		self.graphic.draw_circle(position, radius, color)
 
-	def draw_circle_alpha(self, radius: float, position: (float, float), color: TColor):
-		self.graphic.draw_circle_alpha(radius, position, color)
+	def draw_circle_alpha(self, position: (float, float), radius: float, color: TColor):
+		self.graphic.draw_circle_alpha(position, radius, color)
 
 	def draw_line(self, p1: (float, float), p2: (float, float), color: TColor):
 		self.graphic.draw_line(p1, p2, color)
 
-	def draw_text(self, text: str, position: (int, int), color: TColor):
-		self.graphic.draw_text(text, position, color)
+	def draw_text(self, position: (int, int), text: str, color: TColor):
+		self.graphic.draw_text(position, text, color)
 
-	def draw_text_center(self, text: str, position: (int, int), color: TColor):
-		self.graphic.draw_text_center(text, position, color)
+	def draw_text_center(self, position: (int, int), text: str, color: TColor):
+		self.graphic.draw_text_center(position, text, color)

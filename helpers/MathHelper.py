@@ -1,4 +1,3 @@
-# import vpython
 from typing import Tuple, Union
 
 from vpython import vector
@@ -30,13 +29,10 @@ class Math:
 		self.y = y
 
 	@staticmethod
-	def magnitude(p1: Point, p2: Point) -> float:
+	def magnitude(p1: Union[vector, Point], p2: Union[vector, Point]) -> float:
+		# return (p2 - p1).mag
 		return (((p2.x - p1.x) ** 2) + ((p2.y - p1.y) ** 2)) ** 0.5
 
 	@staticmethod
-	def magnitudeV(p1: vector, p2: vector) -> float:
-		return (p2 - p1).mag
-
-	@staticmethod
-	def distance_xy(p1: Point, p2: Point) -> Point:
+	def distance(p1: Union[vector, Point], p2: Union[vector, Point]) -> Union[vector, Point]:
 		return Point(abs(p2.x - p1.x), abs(p2.y - p1.y))
