@@ -13,16 +13,6 @@ class Point:
 		return self.x, self.y
 
 
-class PointFloat(Point):
-	def __init__(self, x: float, y: float):
-		super().__init__(x, y)
-
-
-class PointInt(Point):
-	def __init__(self, x: int, y: int):
-		super().__init__(x, y)
-
-
 class Math:
 	def __init__(self, x: float, y: float):
 		self.x = x

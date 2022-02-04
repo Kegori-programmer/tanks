@@ -1,37 +1,21 @@
 from classes.GraphicClass import Graphic
 from classes.InfoClass import Info
-from classes.TankBotClass import TankBot
-from classes.TankPlayerClass import TankPlayer
+from helpers.GeneratorHelper import GenBot, GenPlr
 from helpers.PygameHelper import Pygame
-from tanks import tank
 
 width, height = 1024, 768
 # width, height = 1280, 1024
 size, velocity = 15, 3
-x, y = width / 2, height / 2
-player_velocity = velocity
-bot_velocity = player_velocity / 1.5
 graphic = Graphic(Pygame(width, height, (233, 216, 166)))
 info = Info(graphic)
-plr_1 = TankPlayer(graphic, tank((x - width / 4, y), player_velocity, size, 'plr_1', (0, 0, 0)), False)
-# plr_2 = TankPlayer(graphic, tank((x+width / 4, y), velocity, size, 'plr_2', (0, 18, 25)))
-bot_1 = TankBot(graphic, tank((x - width / 3.5, y - height / 2.5), bot_velocity, size, 'bot_1', (155, 34, 38)))
-bot_2 = TankBot(graphic, tank((x + width / 2.5, y - height / 2.5), bot_velocity / 1.5, size, 'bot_2', (187, 62, 3)))
-bot_3 = TankBot(graphic, tank((x - width / 2.5, y + height / 2.5), bot_velocity / 2, size, 'bot_3', (238, 155, 0)))
-bot_4 = TankBot(graphic, tank((x + width / 3.5, y + height / 2.5), bot_velocity / 2.5, size, 'bot_4', (148, 210, 189)))
-bot_5 = TankBot(graphic, tank((x, y - height / 2.5), bot_velocity / 3, size, 'bot_5', (0, 95, 115)))
-# bots = [bot_1]
-# bots = [bot_1, bot_2]
-bots = [bot_1, bot_2, bot_3]
-
-
-# bots = [bot_1, bot_2, bot_3, bot_4]
-# bots = [bot_1, bot_2, bot_3, bot_4, bot_5]
+gen_plr, gen_bot = GenPlr(graphic, width, height, velocity, size), GenBot(graphic, width, height, velocity / 1.5, size)
+plr1 = gen_plr.plr1
+bots = gen_bot.bots
 
 
 def render():
-	info.player(plr_1)
-	plr_1.draw()
+	info.player(plr1)
+	plr1.draw()
 	for i, bot in enumerate(bots):
 		info.bot(i, bot, width)
 		bot.draw()
@@ -39,12 +23,12 @@ def render():
 
 def logic():
 	# Player
-	pos_plr = plr_1.get_position()
-	if plr_1.bound(graphic.width, graphic.height, pos_plr):
-		plr_1.set_position(pos_plr)
+	pos_plr = plr1.get_position()
+	if plr1.bound(graphic.width, graphic.height, pos_plr):
+		plr1.set_position(pos_plr)
 	# Bots
 	for bot in bots:
-		pos_bot = bot.get_position(plr_1)
+		pos_bot = bot.get_position(plr1)
 		bot.set_position(pos_bot)
 
 
