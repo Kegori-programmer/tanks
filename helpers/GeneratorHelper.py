@@ -47,7 +47,8 @@ class GenBot:
 
 	@property
 	def bots(self) -> [TankBot]:
-		return [self.__bot1, self.__bot2, self.__bot3, self.__bot4, self.__bot5]
+		# return [self.__bot1, self.__bot2, self.__bot3, self.__bot4, self.__bot5]
+		return [self.__bot1, self.__bot2, self.__bot3]
 
 
 class GenPlr:
