@@ -1,49 +1,56 @@
-import math
 import random
-from typing import Tuple
+
+from vpython import vector
 
 from classes.TankClass import Tank
 from classes.TankPlayerClass import TankPlayer
-from helpers.MathHelper import Math, PointFloat, Point
+from helpers.MathHelper import Math
 
 
 class TankBot(Tank):
 
-    def draw(self):
-        super().draw()
-        self.graphic.draw_circle_alpha(self.size * 2, self.dst, self.color)
-        self.graphic.draw_line((self.pos.x, self.pos.y), (self.dst.x, self.dst.y), self.color)
-        self.graphic.draw_text_center(self.name, (self.pos.x, self.pos.y), 'black')
+	def draw(self):
+		self.graphic.draw_arrow((self.pos.x, self.pos.y), (self.dir.x, self.dir.y), self.size, self.color)
+		# name
+		self.graphic.draw_text_center((self.pos.x, self.pos.y), self.name, 'black')
+		# direction
+		direction = self.pos + self.dir * self.size * 3 * self.velocity
+		self.graphic.draw_line((self.pos.x, self.pos.y), (direction.x, direction.y), self.color)
+		# destination
+		self.graphic.draw_circle_alpha((self.dst.x, self.dst.y), self.size * 1.5, self.color)
 
-    def get_direction(self, to_point: Point) -> Tuple[int, int]:
-        distance = Math.distance_xy(self.pos, to_point)
-        if distance.x > distance.y:
-            return (-1, 0) if self.pos.x > to_point.x else (1, 0)
-        else:
-            return (0, -1) if self.pos.y > to_point.y else (0, 1)
+	def get_direction(self, p1: vector, p2: vector) -> vector:
+		distance = Math.distance(p1, p2)
+		if distance.x > distance.y:
+			return vector(-1, 0, 0) if p1.x > p2.x else vector(1, 0, 0)
+		else:
+			return vector(0, -1, 0) if p1.y > p2.y else vector(0, 1, 0)
 
-    def destination_to(self, to_point: PointFloat) -> Tuple[float, float]:
-        distance = Math.distance_xy(self.pos, to_point)
-        if distance.x <= self.velocity or distance.y <= self.velocity:
-            return to_point.x, to_point.y
-        elif distance.x > distance.y:
-            return self.pos.x, to_point.y
-        elif distance.x < distance.y:
-            return to_point.x, self.pos.y
-        else:
-            return (self.pos.x, to_point.y) if bool(random.getrandbits(1)) else (to_point.x, self.pos.y)
+	def destination_to(self, p1: vector, p2: vector) -> vector:
+		distance = Math.distance(p1, p2)
+		if distance.x > distance.y:
+			return vector(p1.x, p2.y, 0)
+		elif distance.x < distance.y:
+			return vector(p2.x, p1.y, 0)
+		else:
+			return vector(p1.x, p2.y, 0) if bool(random.getrandbits(1)) else vector(p2.x, p1.y, 0)
 
-    def get_position(self, player: TankPlayer) -> Tuple[float, float]:
-        distance = Math.distance_xy(self.pos, self.dst)
+	def get_position(self, player: TankPlayer) -> vector:
+		# distance = (self.pos - self.dst).mag
+		if self.move:
+			distance = Math.distance(self.pos, self.dst)
+			if distance.x < self.velocity and distance.y < self.velocity:
+				self.move = False
+				return self.pos
+			else:
+				return self.pos + self.dir * self.velocity
+		else:
+			self.move = True
+			distance = Math.distance(self.pos, player.pos)
+			if distance.x < self.velocity or distance.y < self.velocity:
+				self.dst = player.pos
+			else:
+				self.dst = self.destination_to(self.pos, player.pos)
 
-        if math.floor(distance.x) < self.velocity and math.floor(distance.y) < self.velocity:
-            # self.dst.x, self.dst.y = player.pos.x, player.pos.y
-            self.dst.x, self.dst.y = self.destination_to(player.pos)
-            self.dir.x, self.dir.y = 0, 0
-            self.set_orientation(self.dir.x, self.dir.y)
-            return self.pos.x, self.pos.y
-        else:
-            # self.dst.x, self.dst.y = self.destination_to(player.pos)
-            self.dir.x, self.dir.y = self.get_direction(self.dst)
-            self.set_orientation(self.dir.x, self.dir.y)
-            return self.predict_position
+			self.dir = self.get_direction(self.pos, self.dst)
+			return self.pos + self.dir * self.velocity
