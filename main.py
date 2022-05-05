@@ -3,9 +3,9 @@ from classes.InfoClass import Info
 from helpers.GeneratorHelper import GenBot, GenPlr
 from helpers.PygameHelper import Pygame
 
-width, height = 1024, 768
-# width, height = 1280, 1024
-size, velocity = 15, 3
+# width, height = 1024, 768
+width, height = 1280, 1024
+size, velocity = 15, 2
 graphic = Graphic(Pygame(width, height, (233, 216, 166)))
 info = Info(graphic)
 gen_plr, gen_bot = GenPlr(graphic, width, height, velocity, size), GenBot(graphic, width, height, velocity / 1.5, size)
